@@ -1,10 +1,11 @@
 from django import forms
+from django.core import validators
 
 class UserRegistrationForm(forms.Form):
     GENDER = [('male','MALE'),('female','FEMALE')]
-    firstName= forms.CharField()
+    firstName= forms.CharField(validators=[validators.MinLengthValidator(5), validators.MaxLengthValidator(20)])
     lastName= forms.CharField()
-    email= forms.CharField()
+    email= forms.EmailField()
     gender = forms.CharField(widget=forms.Select(choices=GENDER))
     password = forms.CharField(widget=forms.PasswordInput)
     ssn = forms.IntegerField()
@@ -22,14 +23,14 @@ class UserRegistrationForm(forms.Form):
     #     return inputEmail
 
 # Learning about single clean method
-    def clean(self):
-        user_cleaned_data = super().clean()
-        inputFirstName = user_cleaned_data['firstName']
-        inputEmail = user_cleaned_data['email']
-        if len(inputFirstName) > 20:
-            raise forms.ValidationError('The max length of firstName is 20 characters')
-        if inputEmail.find('@')== -1:
-            raise forms.ValidationError('The email shoudl contain @')
+    # def clean(self):
+    #     user_cleaned_data = super().clean()
+    #     inputFirstName = user_cleaned_data['firstName']
+    #     inputEmail = user_cleaned_data['email']
+    #     if len(inputFirstName) > 20:
+    #         raise forms.ValidationError('The max length of firstName is 20 characters')
+    #     if inputEmail.find('@')== -1:
+    #         raise forms.ValidationError('The email shoudl contain @')
         
 
 
