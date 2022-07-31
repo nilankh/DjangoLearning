@@ -7,6 +7,7 @@ def getStudent(request):
     students = Student.objects.all()
     return render(request, 'fbvApp/index.html', {'students':students})
 
+
 def createStudent(request):
     form = StudentForm()
     if(request.method == 'POST'):
@@ -15,6 +16,7 @@ def createStudent(request):
             form.save()
         return redirect('/')
     return render(request, 'fbvApp/create.html', {'form':form})
+
 
 def deleteStudent(request, id):
     student = Student.objects.get(id = id)
