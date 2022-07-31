@@ -27,11 +27,11 @@ def deleteStudent(request, id):
 
 def updateStudent(request, id):
     student = Student.objects.get(id = id)
-    print(":line30", student)
+    form = StudentForm(instance=student)
     if(request.method == 'POST'):
         form = StudentForm(request.POST,instance=student)
         if(form.is_valid()):
             form.save()
             return redirect('/')
 
-    return render(request, 'fbvApp/update.html', {'student':student})
+    return render(request, 'fbvApp/update.html', {'form':form})
